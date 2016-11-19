@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			li img{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				
+				background-size: 100px;
+				float: left;
+			}
+        </style>
+    </head>
+    <body>
+    	<ul id='box'>
+    		
+    	</ul>
+    	<script src='js/jquery-1.12.4.js'></script>
+    	<script>
+    	   var html ='';
+    	   var box = document.getElementById('box');
+		   $.ajax({
+		     //请求类型，这里为POST
+		     type: 'get',
+		     //你要请求的api的URL
+		     url: 'http://apis.baidu.com/txapi/mvtp/meinv?num=10' ,
+		     //是否使用缓存
+		     cache:false,
+		     //数据类型，这里我用的是json
+		     dataType: "json", 
+		     //必要的时候需要用JSON.stringify() 将JSON对象转换成字符串
+		     // data: JSON.strigify({key:value}), //data: {key:value}, 
+		     //添加额外的请求头
+		     headers : {'apikey':'2ce4269deb325a183b83217db2b8cd0a'},
+		     //请求成功的回调函数
+		     success: function(data){
+		        //函数参数 "data" 为请求成功服务端返回的数据
+		        // console.log(data);
+		       	// console.log( data.newslist instanceof Array);
+		       	for(var i=0;i<data.newslist.length;i++){
+		       		 html += '<li><img src="'+ data.newslist[i].picUrl+'" alt=""></li>';
+		       	}
+		       
+		       	box.innerHTML = html;
+
+
+		},
+});
+
+    	</script>
+    </body>
+</html>
